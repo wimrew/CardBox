@@ -20,7 +20,10 @@ public class Card {
         _frontImagePath = frontImagePath;
         _backImagePath = backImagePath;
     }
-
+    public Card(String frontText, String backText){
+        _frontText = frontText;
+        _backText = backText;
+    }
     //Setters
     public void setFrontText(String value) {
         _frontText = value;
