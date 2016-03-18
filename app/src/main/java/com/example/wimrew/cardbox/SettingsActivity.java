@@ -1,7 +1,9 @@
-package com.cardbox;
+package com.example.wimrew.cardbox;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.wimrew.cardbox.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
