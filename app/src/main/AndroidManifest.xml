@@ -19,7 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Play"
+            android:name=".PlayActivity"
+            android:label="@string/title_activity_play"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_play"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
