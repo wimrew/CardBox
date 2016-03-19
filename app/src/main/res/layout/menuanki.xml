@@ -26,15 +26,18 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="Learn!"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:id="@+id/learn"/>
     <Button
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="Manage decks"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:id="@+id/manage"/>
     <Button
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="Options"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:id="@+id/options"/>
 </LinearLayout>

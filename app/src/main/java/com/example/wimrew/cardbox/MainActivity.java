@@ -1,5 +1,6 @@
 package com.example.wimrew.cardbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,9 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout frontLayout, backLayout;
-    Button gotit, flip, again;
-    TextView cardtext;
+Button learn, manage, options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +38,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initGraphics() {
+        learn= (Button) findViewById(R.id.learn);
+        learn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+Intent intent = new Intent(MainActivity.this, PlayActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+        manage= (Button) findViewById(R.id.manage);
+        manage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        frontLayout= (LinearLayout) findViewById(R.id.layoutfront);
-        backLayout=(LinearLayout) findViewById(R.id.layoutback);
-        flip = (Button) findViewById(R.id.flip);
-        flip.setOnClickListener(this);
-        gotit = (Button) findViewById(R.id.gotit);
-        gotit.setOnClickListener(this);
-        again = (Button) findViewById(R.id.again);
-        again.setOnClickListener(this);
-        cardtext= (TextView) findViewById(R.id.cardtext);
+            }
+        });
+        options= (Button) findViewById(R.id.options);
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

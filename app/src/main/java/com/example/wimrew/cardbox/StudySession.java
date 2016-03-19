@@ -26,8 +26,8 @@ public class StudySession {
     public StudySession(Deck deckToStudy) {
         _myDeck = deckToStudy;
 
-        for (int i = 0; i < _myDeck.Count(); i++){
-            _sessionCards.put(_myDeck.GetCard(i),0); //Each card starts by being answered a total of 0 times.
+        for (int i = 0; i < _myDeck.count(); i++){
+            _sessionCards.put(_myDeck.getCard(i),0); //Each card starts by being answered a total of 0 times.
         }
     }
 

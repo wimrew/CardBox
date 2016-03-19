@@ -7,14 +7,14 @@ public class Card {
 
     private String _frontText = "";
     private String _backText = "";
-    private String _frontImagePath = "";
-    private String _backImagePath = "";
+    private int _frontImagePath = 0;
+    private int _backImagePath = 0;
 
     public Card(){
 
     }
 
-    public Card(String frontText, String backText, String frontImagePath, String backImagePath){
+    public Card(String frontText, String backText, int frontImagePath, int backImagePath){
         _frontText = frontText;
         _backText = backText;
         _frontImagePath = frontImagePath;
@@ -33,11 +33,11 @@ public class Card {
          _backText = value;
     }
 
-    public void setFrontImagePath(String value) {
+    public void setFrontImagePath(int value) {
         _frontImagePath = value;
     }
 
-    public void setBackImagePath(String value) {
+    public void setBackImagePath(int value) {
         _backImagePath = value;
     }
 
@@ -50,11 +50,11 @@ public class Card {
         return _backText;
     }
 
-    public String getFrontImagePath() {
+    public int getFrontImagePath() {
         return _frontImagePath;
     }
 
-    public String getBackImagePath() {
+    public int getBackImagePath() {
         return _backImagePath;
     }
 }

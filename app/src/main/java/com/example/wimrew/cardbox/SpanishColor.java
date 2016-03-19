@@ -11,21 +11,23 @@ public class SpanishColor {
     Deck spanishColor = new Deck();
 
     public SpanishColor(){
-        Card R = new Card("Red", "Rojo","@drawable/red","@drawable/red");
-        Card O = new Card("Orange", "Naranja","@drawable/orange","@drawable/orange");
-        Card Y = new Card("Yellow", "Amarillo","@drawable/yellow","@drawable/yellow");
-        Card G = new Card("Green", "Verde","@drawable/green","@drawable/green");
-        Card B = new Card("Blue", "Azul","@drawable/blue","@drawable/blue");
-        Card I = new Card("Indigo", "AĂ±il","@drawable/indigo","@drawable/indigo");
-        Card V = new Card("Violet", "Violeta","@drawable/violet","@drawable/violet");
 
-        spanishColor.AddCard(R);
-        spanishColor.AddCard(O);
-        spanishColor.AddCard(Y);
-        spanishColor.AddCard(G);
-        spanishColor.AddCard(B);
-        spanishColor.AddCard(I);
-        spanishColor.AddCard(V);
+
+        Card R = new Card("Red", "Rojo",com.example.wimrew.cardbox.R.drawable.red,com.example.wimrew.cardbox.R.drawable.red);
+        Card O = new Card("Orange", "Naranja",com.example.wimrew.cardbox.R.drawable.orange,com.example.wimrew.cardbox.R.drawable.orange);
+        Card Y = new Card("Yellow", "Amarillo",com.example.wimrew.cardbox.R.drawable.yellow,com.example.wimrew.cardbox.R.drawable.yellow);
+        Card G = new Card("Green", "Verde",com.example.wimrew.cardbox.R.drawable.green,com.example.wimrew.cardbox.R.drawable.green);
+        Card B = new Card("Blue", "Azul",com.example.wimrew.cardbox.R.drawable.blue,com.example.wimrew.cardbox.R.drawable.blue);
+        Card I = new Card("Indigo", "AĂ±il",com.example.wimrew.cardbox.R.drawable.indigo,com.example.wimrew.cardbox.R.drawable.indigo);
+        Card V = new Card("Violet", "Violeta",com.example.wimrew.cardbox.R.drawable.violet,com.example.wimrew.cardbox.R.drawable.violet);
+
+        spanishColor.addCard(R);
+        spanishColor.addCard(O);
+        spanishColor.addCard(Y);
+        spanishColor.addCard(G);
+        spanishColor.addCard(B);
+        spanishColor.addCard(I);
+        spanishColor.addCard(V);
 
 
 

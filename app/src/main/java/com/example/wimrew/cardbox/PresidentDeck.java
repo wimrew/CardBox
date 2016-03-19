@@ -22,16 +22,16 @@ public class PresidentDeck {
         Card WHH9 = new Card("William Henry Harrison", "9th");
         Card JT10 = new Card("John Tyler", "10th");
 
-        presDeck.AddCard(GW1);
-        presDeck.AddCard(JA2);
-        presDeck.AddCard(TJ3);
-        presDeck.AddCard(JM4);
-        presDeck.AddCard(JM5);
-        presDeck.AddCard(JQA6);
-        presDeck.AddCard(AJ7);
-        presDeck.AddCard(MVB8);
-        presDeck.AddCard(WHH9);
-        presDeck.AddCard(JT10);
+        presDeck.addCard(GW1);
+        presDeck.addCard(JA2);
+        presDeck.addCard(TJ3);
+        presDeck.addCard(JM4);
+        presDeck.addCard(JM5);
+        presDeck.addCard(JQA6);
+        presDeck.addCard(AJ7);
+        presDeck.addCard(MVB8);
+        presDeck.addCard(WHH9);
+        presDeck.addCard(JT10);
 
 
     }

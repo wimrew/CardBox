@@ -13,35 +13,35 @@ public class Deck {
 
     }
 
-    public void AddCard(Card toAdd) {
+    public void addCard(Card toAdd) {
         if (!Cards.contains(toAdd)) {
             Cards.add(toAdd);
         }
     }
 
-    public void RemoveCard(Card toRemove){
+    public void removeCard(Card toRemove){
         if (Cards.contains(toRemove)) {
             Cards.remove(toRemove);
         }
     }
 
-    public Card GetCard(int index) {
+    public Card getCard(int index) {
         if (index > -1 && index < Cards.size()){
             return Cards.get(index);
         }
         return null;
     }
 
-    public int Count() {
+    public int count() {
         return Cards.size();
     }
 
     //TODO: Loading and Saving of Decks including their Cards
-    public void Load() {
+    public void load() {
         //We need to decide what format we will use, and how to save/retrieve them.
     }
 
-    public void Save() {
+    public void save() {
         //We need to decide what format we will use, and how to save/retrieve them.
     }
 }
