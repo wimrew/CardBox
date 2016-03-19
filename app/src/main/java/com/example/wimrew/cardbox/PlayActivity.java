@@ -120,6 +120,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         frontLayout.setVisibility(View.VISIBLE);
         backLayout.setVisibility(View.GONE);
         currentCard=studysession.getNextCard();
+        setFrontCard(currentCard);
 
     }
 }
