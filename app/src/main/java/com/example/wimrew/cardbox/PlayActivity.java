@@ -100,8 +100,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             flip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    frontLayout.setVisibility(View.GONE);
-                    backLayout.setVisibility(View.VISIBLE);
+                    switchButtonsVisibility();
                     setBackCard(currentCard);
                 }
             });
@@ -117,10 +116,24 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         //the gotit and again buttons, for now
-        frontLayout.setVisibility(View.VISIBLE);
-        backLayout.setVisibility(View.GONE);
+       switchButtonsVisibility();
         currentCard=studysession.getNextCard();
         setFrontCard(currentCard);
 
+    }
+
+    public void switchButtonsVisibility(){
+        if (frontLayout.getVisibility()==View.VISIBLE){
+            frontLayout.setVisibility(View.GONE);
+        }
+        if (frontLayout.getVisibility()==View.GONE){
+            frontLayout.setVisibility(View.VISIBLE);
+        }
+        if (backLayout.getVisibility()==View.VISIBLE){
+            backLayout.setVisibility(View.GONE);
+        }
+        if (backLayout.getVisibility()==View.GONE){
+            backLayout.setVisibility(View.VISIBLE);
+        }
     }
 }
