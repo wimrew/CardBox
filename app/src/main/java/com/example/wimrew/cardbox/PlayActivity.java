@@ -16,7 +16,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     Button gotit, flip, again;
     TextView cardtext;
     Deck currentDeck;
-    int currentCardPos;
+    StudySession studysession;
+
     ImageView cardimage;
     Card currentCard;
     @Override
@@ -24,7 +25,7 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card);
         initGraphics();
-        initDeck();
+        initSessionAndDeck();
         setFirstCard();
 /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,8 +43,8 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setFirstCard() {
-        currentCardPos=0;
-        currentCard=currentDeck.getCard(currentCardPos);
+
+        currentCard=studysession.getNextCard();
         setFrontCard(currentCard);
     }
 
@@ -52,14 +53,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
         cardtext.setVisibility(View.VISIBLE);
 
         if (card.getFrontImagePath()==0){
-         cardimage.setVisibility(View.INVISIBLE);
+         cardimage.setVisibility(View.GONE);
         } else {
 
             cardimage.setImageResource(currentCard.getFrontImagePath());
         }
 
         if (card.getFrontText().equals("")){
-            cardtext.setVisibility(View.INVISIBLE);
+            cardtext.setVisibility(View.GONE);
         } else {
 
             cardtext.setText(currentCard.getFrontText());
@@ -69,11 +70,25 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
     private void setBackCard(Card card){
         cardimage.setVisibility(View.VISIBLE);
         cardtext.setVisibility(View.VISIBLE);
+        if (card.getBackImagePath()==0){
+            cardimage.setVisibility(View.GONE);
+        } else {
 
+            cardimage.setImageResource(currentCard.getBackImagePath());
+        }
+
+        if (card.getBackText().equals("")){
+            cardtext.setVisibility(View.GONE);
+        } else {
+
+            cardtext.setText(currentCard.getBackText());
+        }
     }
 
-    private void initDeck() {
+    private void initSessionAndDeck() {
         currentDeck=new SpanishColor().getDeck();
+        studysession=new StudySession(currentDeck);
+
     }
 
 
@@ -82,7 +97,14 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
             frontLayout= (LinearLayout) findViewById(R.id.layoutfront);
             backLayout=(LinearLayout) findViewById(R.id.layoutback);
             flip = (Button) findViewById(R.id.flip);
-            flip.setOnClickListener(this);
+            flip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    frontLayout.setVisibility(View.GONE);
+                    backLayout.setVisibility(View.VISIBLE);
+                    setBackCard(currentCard);
+                }
+            });
             gotit = (Button) findViewById(R.id.gotit);
             gotit.setOnClickListener(this);
             again = (Button) findViewById(R.id.again);
@@ -94,6 +116,10 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        //the gotit and again buttons, for now
+        frontLayout.setVisibility(View.VISIBLE);
+        backLayout.setVisibility(View.GONE);
+        currentCard=studysession.getNextCard();
 
     }
 }
