@@ -34,26 +34,26 @@ public class StudySession {
     public Card getNextCard() {
         //Throw the remaining cards into a list.
         List<Card> cards = new ArrayList<Card>(_sessionCards.keySet());
-
-        if (cards.size() == 1) {
-            //return the only card!
-            _currentCard = cards.get(0);
-            return cards.get(0);
-        }
-        else{
-            //Get a number between 0 and the number of remaining cards.
-            int index = _Rand.nextInt(cards.size());
-            //If the random card we picked was the previously shown card, try again!
-            if (cards.get(index) == _lastCard) {
-                return getNextCard();
+        if (!isDone()) {
+            if (cards.size() == 1) {
+                //return the only card!
+                _currentCard = cards.get(0);
+                return cards.get(0);
+            } else {
+                //Get a number between 0 and the number of remaining cards.
+                int index = _Rand.nextInt(cards.size());
+                //If the random card we picked was the previously shown card, try again!
+                if (cards.get(index) == _lastCard) {
+                    return getNextCard();
+                } else {
+                    //Return the card at the random index we generated
+                    _lastCard = _currentCard;
+                    _currentCard = cards.get(index);
+                    return _currentCard;
+                }
             }
-            else {
-                //Return the card at the random index we generated
-                _lastCard = _currentCard;
-                _currentCard = cards.get(index);
-                return _currentCard;
-            }
-        }
+        } else{
+        return null;}
     }
 
     public void markCorrect() {

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class PlayActivity extends AppCompatActivity implements View.OnClickListener {
+public class PlayActivity extends AppCompatActivity  {
     LinearLayout frontLayout, backLayout;
     Button gotit, flip, again;
     TextView cardtext;
@@ -105,34 +105,51 @@ public class PlayActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
             gotit = (Button) findViewById(R.id.gotit);
-            gotit.setOnClickListener(this);
+            gotit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    studysession.markCorrect();
+                    if (studysession.isDone()){
+                        PlayActivity.this.finish();
+                    } else {
+                        switchButtonsVisibility();
+                        currentCard = studysession.getNextCard();
+                        setFrontCard(currentCard);
+                    }
+                }
+            });
             again = (Button) findViewById(R.id.again);
-            again.setOnClickListener(this);
+            again.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    studysession.markIncorrect();
+                    if (studysession.isDone()){
+                        PlayActivity.this.finish();
+                    } else {
+                        switchButtonsVisibility();
+                        currentCard = studysession.getNextCard();
+                        setFrontCard(currentCard);
+                    }
+                }
+            });
             cardtext= (TextView) findViewById(R.id.cardtext);
             cardimage=(ImageView) findViewById(R.id.cardimage);
         }
 
 
-    @Override
-    public void onClick(View v) {
-        //the gotit and again buttons, for now
-       switchButtonsVisibility();
-        currentCard=studysession.getNextCard();
-        setFrontCard(currentCard);
 
-    }
 
     public void switchButtonsVisibility(){
         if (frontLayout.getVisibility()==View.VISIBLE){
             frontLayout.setVisibility(View.GONE);
-        }
-        if (frontLayout.getVisibility()==View.GONE){
+        } else
+        {
             frontLayout.setVisibility(View.VISIBLE);
         }
         if (backLayout.getVisibility()==View.VISIBLE){
             backLayout.setVisibility(View.GONE);
-        }
-        if (backLayout.getVisibility()==View.GONE){
+        }else
+        {
             backLayout.setVisibility(View.VISIBLE);
         }
     }
