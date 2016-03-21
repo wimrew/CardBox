@@ -75,7 +75,7 @@ public class StudySession {
         }
     }
 
-    public int remainingCards() {
+    public int getRemainingCards() {
         return _sessionCards.size();
     }
 

@@ -37,7 +37,7 @@ public class StudySessionTest extends TestCase {
 
     @Test
     public void testGetNextCard() throws Exception {
-        if (sessionTest.remainingCards() > 0) {
+        if (sessionTest.getRemainingCards() > 0) {
             Card displayCard = sessionTest.getNextCard();
             assertNotNull(displayCard);
         }
@@ -45,27 +45,27 @@ public class StudySessionTest extends TestCase {
 
     @Test
     public void testMarkCorrect() throws Exception {
-        int cardCount = sessionTest.remainingCards();
+        int cardCount = sessionTest.getRemainingCards();
         if (cardCount > 0) {
             sessionTest.getNextCard();
             sessionTest.markCorrect();
-            assertEquals(cardCount - 1, sessionTest.remainingCards());
+            assertEquals(cardCount - 1, sessionTest.getRemainingCards());
         }
     }
 
     @Test
     public void testMarkIncorrect() throws Exception {
-        int cardCount = sessionTest.remainingCards();
+        int cardCount = sessionTest.getRemainingCards();
         if (cardCount > 0) {
             sessionTest.getNextCard();
             sessionTest.markIncorrect();
-            assertEquals(cardCount,sessionTest.remainingCards());
+            assertEquals(cardCount,sessionTest.getRemainingCards());
         }
     }
 
     @Test
     public void testRemainingCards() throws Exception {
-        assertEquals(5, sessionTest.remainingCards());
+        assertEquals(5, sessionTest.getRemainingCards());
     }
 
     @Test
