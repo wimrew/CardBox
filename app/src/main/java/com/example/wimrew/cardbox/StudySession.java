@@ -75,6 +75,10 @@ public class StudySession {
         }
     }
 
+    public int remainingCards() {
+        return _sessionCards.size();
+    }
+
     public boolean isDone() {
         //If we have no more cards to show, return true, else return false.
         if (_sessionCards.size() == 0){
