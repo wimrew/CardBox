@@ -1,10 +1,7 @@
 package com.example.wimrew.cardbox;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,7 +12,7 @@ public class PlayActivity extends AppCompatActivity  {
     LinearLayout frontLayout, backLayout;
     Button gotit, flip, again;
     TextView cardtext;
-    Deck currentDeck;
+    Deck currentDeck, a, b, c;
     StudySession studysession;
 
     ImageView cardimage;
@@ -86,7 +83,10 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     private void initSessionAndDeck() {
-        currentDeck=new SpanishColor().getDeck();
+         a =new ShapeDeck().getDeck();
+         b= new PresidentDeck().getDeck();
+         c=new SpanishColorDeck().getDeck();
+        currentDeck=a;
         studysession=new StudySession(currentDeck);
 
     }

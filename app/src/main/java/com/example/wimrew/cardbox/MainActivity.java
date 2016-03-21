@@ -50,7 +50,8 @@ Intent intent = new Intent(MainActivity.this, PlayActivity.class);
         manage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this, ManageDecksActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
         options= (Button) findViewById(R.id.options);
