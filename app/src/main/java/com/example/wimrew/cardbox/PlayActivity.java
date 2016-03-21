@@ -8,12 +8,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class PlayActivity extends AppCompatActivity  {
     LinearLayout frontLayout, backLayout;
     Button gotit, flip, again;
     TextView cardtext;
     Deck currentDeck, a, b, c;
     StudySession studysession;
+    ArrayList<Deck> decks;
 
     ImageView cardimage;
     Card currentCard;
@@ -83,10 +86,15 @@ public class PlayActivity extends AppCompatActivity  {
     }
 
     private void initSessionAndDeck() {
-         a =new ShapeDeck().getDeck();
-         b= new PresidentDeck().getDeck();
-         c=new SpanishColorDeck().getDeck();
-        currentDeck=a;
+
+        // a =new ShapeDeck().getDeck();
+        // b= new PresidentDeck().getDeck();
+       //  c=new SpanishColorDeck().getDeck();
+decks=new ArrayList<Deck>();
+        decks.add(new ShapeDeck().getDeck());
+        decks.add(new PresidentDeck().getDeck());
+        decks.add(new SpanishColorDeck().getDeck());
+        currentDeck=decks.get(0);
         studysession=new StudySession(currentDeck);
 
     }

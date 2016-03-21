@@ -25,6 +25,10 @@ public class ManageDecksActivity extends AppCompatActivity {
             }
         });
         */
+        initGraphics();
+    }
+
+    private void initGraphics() {
     }
 
 }
