@@ -1,13 +1,24 @@
 package com.example.wimrew.cardbox;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64InputStream;
+import android.util.Base64OutputStream;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PlayActivity extends AppCompatActivity  {
@@ -17,6 +28,9 @@ public class PlayActivity extends AppCompatActivity  {
     Deck currentDeck, a, b, c;
     StudySession studysession;
     ArrayList<Deck> decks;
+    SharedPreferences pref;
+    int chosenDeck;
+    boolean paused;
 
     ImageView cardimage;
     Card currentCard;
@@ -25,8 +39,11 @@ public class PlayActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card);
         initGraphics();
+        initPreferencesObject();
+        getDeckSelectionFromPreferences();
         initSessionAndDeck();
         setFirstCard();
+paused=false;
 /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,6 +57,47 @@ public class PlayActivity extends AppCompatActivity  {
             }
         });
         */
+    }
+
+
+
+    @Override
+    protected void onPause(){
+        paused=true;
+        SharedPreferences.Editor editor = pref.edit();
+        String cardString=objectToString(currentCard);
+        String sessionString=objectToString(studysession);
+        editor.putString("Card",cardString);
+        editor.putString("Session",sessionString);
+        editor.putBoolean("Paused",paused);
+        editor.apply();
+
+
+super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*
+        paused=pref.getBoolean("Paused",false);
+        Log.d("stuff","before if");
+        if (paused==true) {
+            currentCard = (Card) stringToObject(pref.getString("Card", ""));
+            studysession = (StudySession) stringToObject(pref.getString("Session", ""));
+            setFrontCard(currentCard);
+            Log.d("stuff","got here");
+        }
+        */
+    }
+
+    private void initPreferencesObject() {
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    private void getDeckSelectionFromPreferences() {
+
+          chosenDeck = pref.getInt("Deck", 0);
     }
 
     private void setFirstCard() {
@@ -94,7 +152,8 @@ decks=new ArrayList<Deck>();
         decks.add(new ShapeDeck().getDeck());
         decks.add(new PresidentDeck().getDeck());
         decks.add(new SpanishColorDeck().getDeck());
-        currentDeck=decks.get(0);
+        //chosenDeck, a value between 0 and the number of decks
+        currentDeck=decks.get(chosenDeck);
         studysession=new StudySession(currentDeck);
 
     }
@@ -161,4 +220,35 @@ decks=new ArrayList<Deck>();
             backLayout.setVisibility(View.VISIBLE);
         }
     }
+
+    public static String objectToString(Serializable object) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            new ObjectOutputStream(out).writeObject(object);
+            byte[] data = out.toByteArray();
+            out.close();
+
+            out = new ByteArrayOutputStream();
+            Base64OutputStream b64 = new Base64OutputStream(out, 0);
+            b64.write(data);
+            b64.close();
+            out.close();
+
+            return new String(out.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Object stringToObject(String encodedObject) {
+        try {
+            return new ObjectInputStream(new Base64InputStream(
+                    new ByteArrayInputStream(encodedObject.getBytes()), 0)).readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

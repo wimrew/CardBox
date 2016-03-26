@@ -1,5 +1,6 @@
 package com.example.wimrew.cardbox;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Random;
 /**
  * Created by JC Snider on 2/14/2016.
  */
-public class StudySession {
+public class StudySession implements Serializable{
 
     //This is the deck of cards we are studying.
     private Deck _myDeck;

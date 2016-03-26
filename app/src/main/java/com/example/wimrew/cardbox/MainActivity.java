@@ -1,7 +1,9 @@
 package com.example.wimrew.cardbox;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 Button learn, manage, options;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,18 @@ Button learn, manage, options;
 
         initGraphics();
 
+        //initialize preferences, we will use this in the other Activities to
+        //set the current deck
+
+       setDefaultDeckWithPreferences();
+
+    }
+
+    private void setDefaultDeckWithPreferences() {
+        pref= PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("Deck",0);
+        editor.apply();
     }
 
     private void initGraphics() {

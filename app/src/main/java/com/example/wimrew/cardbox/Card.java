@@ -1,9 +1,11 @@
 package com.example.wimrew.cardbox;
 
+import java.io.Serializable;
+
 /**
  * Created by JC Snider on 2/14/2016.
  */
-public class Card {
+public class Card implements Serializable{
 
     private String _frontText = "";
     private String _backText = "";
