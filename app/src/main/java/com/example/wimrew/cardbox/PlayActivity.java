@@ -29,7 +29,7 @@ public class PlayActivity extends AppCompatActivity  {
     StudySession studysession;
     ArrayList<Deck> decks;
     SharedPreferences pref;
-    int chosenDeck;
+    int chosenDeck, correct;
     boolean paused;
     DeckDatabase deckDatabase;
 
@@ -44,6 +44,7 @@ public class PlayActivity extends AppCompatActivity  {
         initGraphics();
         initPreferencesObject();
         getDeckSelectionFromPreferences();
+        getCorrectAnswerNumberFromPreferences();
         initSessionAndDeck();
         setFirstCard();
         paused=false;
@@ -70,9 +71,9 @@ public class PlayActivity extends AppCompatActivity  {
         SharedPreferences.Editor editor = pref.edit();
         String cardString=objectToString(currentCard);
         String sessionString=objectToString(studysession);
-        editor.putString("Card",cardString);
-        editor.putString("Session",sessionString);
-        editor.putBoolean("Paused",paused);
+        editor.putString("Card", cardString);
+        editor.putString("Session", sessionString);
+        editor.putBoolean("Paused", paused);
         editor.apply();
 
 
@@ -101,6 +102,11 @@ super.onPause();
     private void getDeckSelectionFromPreferences() {
 
           chosenDeck = pref.getInt("Deck", 0);
+    }
+
+    private void getCorrectAnswerNumberFromPreferences() {
+
+        correct = pref.getInt("correct", 1);
     }
 
     private void setFirstCard() {
@@ -151,6 +157,7 @@ super.onPause();
         //chosenDeck, a value between 0 and the number of decks
         currentDeck=decks.get(chosenDeck);
         studysession=new StudySession(currentDeck);
+        studysession.setCorrectLimit(correct);
 
     }
 

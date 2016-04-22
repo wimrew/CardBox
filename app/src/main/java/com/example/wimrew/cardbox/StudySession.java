@@ -22,7 +22,7 @@ public class StudySession implements Serializable{
     private Random _Rand = new Random();
 
     //This is a temporary variable I am using to say if a card is correct X amount of times, don't repeat it. This will be replaced by the option value when that is created.
-    private int CorrectLimit = 1;
+    private int correctLimit = 1;
 
     public StudySession(Deck deckToStudy) {
         _myDeck = deckToStudy;
@@ -31,7 +31,9 @@ public class StudySession implements Serializable{
             _sessionCards.put(_myDeck.getCard(i),0); //Each card starts by being answered a total of 0 times.
         }
     }
-
+public void setCorrectLimit(int correctLimit){
+    this.correctLimit=correctLimit;
+}
     public Card getNextCard() {
         //Throw the remaining cards into a list.
         List<Card> cards = new ArrayList<Card>(_sessionCards.keySet());
@@ -63,7 +65,7 @@ public class StudySession implements Serializable{
             _sessionCards.put(_currentCard,_sessionCards.get(_currentCard) + 1);
 
             //If the score is equal to or above the limit, we don't need to show it again, remove it from our hashmap.
-            if (_sessionCards.get(_currentCard) >= CorrectLimit) {
+            if (_sessionCards.get(_currentCard) >= correctLimit) {
                 _sessionCards.remove(_currentCard);
                 _currentCard = null;
             }
