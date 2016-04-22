@@ -93,6 +93,9 @@ super.onPause();
             Log.d("stuff","got here");
         }
         */
+
+        getCorrectAnswerNumberFromPreferences();
+        studysession.setCorrectLimit(correct);
     }
 
     private void initPreferencesObject() {
