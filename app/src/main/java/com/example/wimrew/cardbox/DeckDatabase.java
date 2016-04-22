@@ -81,12 +81,41 @@ public class DeckDatabase {
             db.execSQL(CREATE_CARD_TABLE);
 
             //Insert Shape Deck
+            db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (1, 'Shapes')");
             //Insert Shape Cards
+            addToDeck(db,new Card("", "Triangle", R.drawable.triangle, R.drawable.triangle),1);
+            addToDeck(db,new Card("", "Square", R.drawable.square, R.drawable.square),1);
+            addToDeck(db,new Card("", "Oval", R.drawable.oval, R.drawable.oval),1);
+            addToDeck(db,new Card("", "Heart", R.drawable.heart, R.drawable.heart),1);
+            addToDeck(db,new Card("", "Hexagon", R.drawable.hexagon, R.drawable.hexagon),1);
+            addToDeck(db, new Card("", "Parallelgram", R.drawable.parallelogram, R.drawable.parallelogram), 1);
+            addToDeck(db, new Card("", "Pentagon", R.drawable.pentagon, R.drawable.pentagon), 1);
+            addToDeck(db, new Card("", "Rhombus", R.drawable.rhombus, R.drawable.rhombus), 1);
+            addToDeck(db,new Card("", "Star", R.drawable.star, R.drawable.star),1);
 
             //Insert President Deck
+            db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (2, 'Presidents')");
+            addToDeck(db, new Card("George  Washington", "1st"), 23);
+            addToDeck(db, new Card("John Adams", "2nd"), 2);
+            addToDeck(db, new Card("Thomas Jefferson", "3rd"), 2);
+            addToDeck(db, new Card("James Madison", "4th"), 2);
+            addToDeck(db, new Card("James Monroe", "5th"), 2);
+            addToDeck(db, new Card("John Quincy Adams", "6th"), 2);
+            addToDeck(db, new Card("Andrew Jackson", "7th"), 2);
+            addToDeck(db, new Card("Martin Van Buren", "8th"), 2);
+            addToDeck(db, new Card("William Henry Harrison", "9th"), 2);
+            addToDeck(db, new Card("John Tyler", "10th"), 2);
 
             //Insert our spanish color deck
+            db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (3, 'Spanish Colors')");
             //Insert the Default Spanish Color Cards
+            addToDeck(db, new Card("Red", "Rojo", R.drawable.red, R.drawable.red),3);
+            addToDeck(db, new Card("Orange", "Naranja", R.drawable.orange, R.drawable.orange),3);
+            addToDeck(db, new Card("Yellow", "Amarillo", R.drawable.yellow, R.drawable.yellow),3);
+            addToDeck(db, new Card("Green", "Verde", R.drawable.green, R.drawable.green),3);
+            addToDeck(db, new Card("Blue", "Azul", R.drawable.blue, R.drawable.blue), 3);
+            addToDeck(db, new Card("Indigo", "Indigo", R.drawable.indigo, R.drawable.indigo), 3);
+            addToDeck(db, new Card("Violet", "Violeta", R.drawable.violet, R.drawable.violet), 3);
         }
 
         public void addToDeck(SQLiteDatabase db, Card card, int deckIndex) {
