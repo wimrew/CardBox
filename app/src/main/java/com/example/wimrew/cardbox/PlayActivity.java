@@ -31,19 +31,22 @@ public class PlayActivity extends AppCompatActivity  {
     SharedPreferences pref;
     int chosenDeck;
     boolean paused;
+    DeckDatabase deckDatabase;
 
     ImageView cardimage;
     Card currentCard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card);
+        deckDatabase = new DeckDatabase(this);
         initGraphics();
         initPreferencesObject();
         getDeckSelectionFromPreferences();
         initSessionAndDeck();
         setFirstCard();
-paused=false;
+        paused=false;
 /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,14 +147,7 @@ super.onPause();
     }
 
     private void initSessionAndDeck() {
-
-        // a =new ShapeDeck().getDeck();
-        // b= new PresidentDeck().getDeck();
-       //  c=new SpanishColorDeck().getDeck();
-decks=new ArrayList<Deck>();
-        decks.add(new ShapeDeck().getDeck());
-        decks.add(new PresidentDeck().getDeck());
-        decks.add(new SpanishColorDeck().getDeck());
+        decks=deckDatabase.getDecks();
         //chosenDeck, a value between 0 and the number of decks
         currentDeck=decks.get(chosenDeck);
         studysession=new StudySession(currentDeck);
