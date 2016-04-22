@@ -14,7 +14,7 @@ import android.util.Log;
 public class DeckDatabase {
     // database constants
     public static final String DB_NAME = "cardbox.db";
-    public static final int    DB_VERSION = 1;
+    public static final int    DB_VERSION = 2;
 
     // deck table constants
     public static final String DECK_TABLE = "deck";
@@ -105,6 +105,41 @@ public class DeckDatabase {
             addToDeck(db, new Card("Martin Van Buren", "8th"), 2);
             addToDeck(db, new Card("William Henry Harrison", "9th"), 2);
             addToDeck(db, new Card("John Tyler", "10th"), 2);
+			addToDeck(db, new Card("James K. Polk", "11th"), 2);
+			addToDeck(db, new Card("Zachary Taylor", "12th"), 2);
+			addToDeck(db, new Card("Millard Fillmore", "13th"), 2);
+			addToDeck(db, new Card("Franklin Pierce", "14th"), 2);
+			addToDeck(db, new Card("James Buchana", "15th"), 2);
+			addToDeck(db, new Card("Abraham Lincoln", "16th"), 2);
+			addToDeck(db, new Card("Andrew Johnson", "17th"), 2);
+			addToDeck(db, new Card("Ulysses S. Grant", "18th"), 2);
+			addToDeck(db, new Card("Rutherford B. Hayes", "19th"), 2);
+			addToDeck(db, new Card("James A. Garfield", "20th"), 2);
+			addToDeck(db, new Card("Chester A. Arthur", "21sh"), 2);
+			addToDeck(db, new Card("Grover Cleveland", "22nd"), 2);
+			addToDeck(db, new Card("Benjamin Harrison", "23rd"), 2);
+			addToDeck(db, new Card("Grover Cleveland", "24th"), 2);
+			addToDeck(db, new Card("William McKinley", "25th"), 2);
+			addToDeck(db, new Card("Theodore Roosevelt", "26th"), 2);
+			addToDeck(db, new Card("William Howard Taft", "27th"), 2);
+			addToDeck(db, new Card("Woodrow Wilson", "28th"), 2);
+			addToDeck(db, new Card("Warren G. Harding", "29th"), 2);
+			addToDeck(db, new Card("Calvin Coolidge", "30th"), 2);
+			addToDeck(db, new Card("Herbert Hoover", "31st"), 2);
+			addToDeck(db, new Card("Franklin D. Roosevelt", "32nd"), 2);
+			addToDeck(db, new Card("Harry S. Truman", "33rd"), 2);
+			addToDeck(db, new Card("Dwight D. Eisenhower", "34th"), 2);
+			addToDeck(db, new Card("John F. Kennedy", "35th"), 2);
+			addToDeck(db, new Card("Lyndon B. Johnson", "36th"), 2);
+			addToDeck(db, new Card("Richard Nixon", "37th"), 2);
+			addToDeck(db, new Card("Gerald Ford", "38th"), 2);
+			addToDeck(db, new Card("Jimmy Carter", "39th"), 2);
+			addToDeck(db, new Card("Ronald Reagan", "40th"), 2);
+			addToDeck(db, new Card("George H. W. Bush", "41st"), 2);
+			addToDeck(db, new Card("Bill Clinton", "42nd"), 2);
+			addToDeck(db, new Card("George W. Bush", "43th"), 2);
+			addToDeck(db, new Card("Barack Obama", "44th"), 2);
+
 
             //Insert our spanish color deck
             db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (3, 'Spanish Colors')");
