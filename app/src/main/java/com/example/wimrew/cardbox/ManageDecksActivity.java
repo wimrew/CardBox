@@ -22,9 +22,11 @@ RadioGroup rgroup;
         restoreSelectedDeck();
     }
 
+
+
     private void restoreSelectedDeck() {
          pref = PreferenceManager.getDefaultSharedPreferences(this);
-        int selection = pref.getInt("Deck",0);
+        int selection = pref.getInt("DeckSelection",0);
         if (selection==0){
             a.setChecked(true);
         }
@@ -69,7 +71,8 @@ RadioGroup rgroup;
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("Deck",0);
+                editor.putInt("DeckSelection",0);
+                editor.putBoolean("DeckModif",true);
                 editor.apply();
             }
         });
@@ -78,7 +81,8 @@ RadioGroup rgroup;
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("Deck",1);
+                editor.putInt("DeckSelection",1);
+                editor.putBoolean("DeckModif", true);
                 editor.apply();
             }
         });
@@ -87,7 +91,8 @@ RadioGroup rgroup;
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("Deck",2);
+                editor.putInt("DeckSelection",2);
+                editor.putBoolean("DeckModif",true);
                 editor.apply();
             }
         });

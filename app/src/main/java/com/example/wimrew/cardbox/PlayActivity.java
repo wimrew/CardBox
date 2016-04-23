@@ -30,7 +30,7 @@ public class PlayActivity extends AppCompatActivity  {
     ArrayList<Deck> decks;
     SharedPreferences pref;
     int chosenDeck, correct;
-    boolean paused;
+    boolean paused, front, deckModif;
     DeckDatabase deckDatabase;
 
     ImageView cardimage;
@@ -48,6 +48,8 @@ public class PlayActivity extends AppCompatActivity  {
         initSessionAndDeck();
         setFirstCard();
         paused=false;
+        front=true;
+
 /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,9 +73,16 @@ public class PlayActivity extends AppCompatActivity  {
         SharedPreferences.Editor editor = pref.edit();
         String cardString=objectToString(currentCard);
         String sessionString=objectToString(studysession);
+        String deckString=objectToString(currentDeck);
+
         editor.putString("Card", cardString);
         editor.putString("Session", sessionString);
+        editor.putString("DeckString", deckString);
+
         editor.putBoolean("Paused", paused);
+        editor.putBoolean("Front", front);
+
+        editor.putBoolean("DeckModif", false);
         editor.apply();
 
 
@@ -83,16 +92,41 @@ super.onPause();
     @Override
     protected void onResume() {
         super.onResume();
-        /*
-        paused=pref.getBoolean("Paused",false);
+
+        deckModif=pref.getBoolean("DeckModif",true);
         Log.d("stuff","before if");
-        if (paused==true) {
-            currentCard = (Card) stringToObject(pref.getString("Card", ""));
-            studysession = (StudySession) stringToObject(pref.getString("Session", ""));
-            setFrontCard(currentCard);
-            Log.d("stuff","got here");
+        if (deckModif==true){
+            getDeckSelectionFromPreferences();
+            getCorrectAnswerNumberFromPreferences();
+            initSessionAndDeck();
+            setFirstCard();
+            paused=false;
+            front=true;
+        } else {
+
+            try {
+                Card currentCardTemp = (Card) stringToObject(pref.getString("Card", ""));
+                StudySession studysessionTemp = (StudySession) stringToObject(pref.getString("Session", ""));
+                Deck currentDeckTemp = (Deck) stringToObject(pref.getString("DeckString",""));
+                boolean frontTemp = pref.getBoolean("Front", false);
+                if ((currentCardTemp!=null)&&(studysessionTemp!=null)) {
+                    currentDeck=currentDeckTemp;
+                    currentCard=currentCardTemp;
+                    front=frontTemp;
+                    setFrontCard(currentCard);
+                    studysession=studysessionTemp;
+                    if (front==false){
+                        switchButtonsVisibility();
+                        setBackCard(currentCard);
+                    }
+                }
+                Log.d("stuff", "got here");
+            } catch (Exception e){
+                Log.d("stuff","exceptionstuff");
+            }
+
         }
-        */
+
 
         getCorrectAnswerNumberFromPreferences();
         studysession.setCorrectLimit(correct);
@@ -103,9 +137,10 @@ super.onPause();
     }
 
     private void getDeckSelectionFromPreferences() {
-
-          chosenDeck = pref.getInt("Deck", 0);
-    }
+try {
+    chosenDeck = pref.getInt("DeckSelection", 0);
+} catch (Exception e){Log.d("stuff", "getDeckSelectionFromPreferences exception");
+    }}
 
     private void getCorrectAnswerNumberFromPreferences() {
 
@@ -175,6 +210,7 @@ super.onPause();
                 public void onClick(View v) {
                     switchButtonsVisibility();
                     setBackCard(currentCard);
+                    front=false;
                 }
             });
             gotit = (Button) findViewById(R.id.gotit);
@@ -188,6 +224,7 @@ super.onPause();
                         switchButtonsVisibility();
                         currentCard = studysession.getNextCard();
                         setFrontCard(currentCard);
+                        front=true;
                     }
                 }
             });
@@ -202,6 +239,7 @@ super.onPause();
                         switchButtonsVisibility();
                         currentCard = studysession.getNextCard();
                         setFrontCard(currentCard);
+                        front=true;
                     }
                 }
             });

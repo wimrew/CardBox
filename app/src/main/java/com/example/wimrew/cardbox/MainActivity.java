@@ -49,6 +49,7 @@ Button learn, manage, options;
         pref= PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("Deck",0);
+        editor.putBoolean("DeckModif",true);
         editor.apply();
     }
 
