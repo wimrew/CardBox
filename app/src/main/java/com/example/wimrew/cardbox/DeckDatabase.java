@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 /**
  * Created by JC Snider on 4/21/2016.
@@ -14,7 +15,7 @@ import android.util.Log;
 public class DeckDatabase {
     // database constants
     public static final String DB_NAME = "cardbox.db";
-    public static final int    DB_VERSION = 2;
+    public static final int    DB_VERSION = 4;
 
     // deck table constants
     public static final String DECK_TABLE = "deck";
@@ -34,17 +35,20 @@ public class DeckDatabase {
     public static final String CARD_DECK_ID = "deck_id";
     public static final int    CARD_DECK_ID_COL = 1;
 
+    public static final String CARD_NAME_ID = "card_name";
+    public static final int    CARD_NAME_ID_COL = 2;
+
     public static final String CARD_FRONT_TEXT = "front_text";
-    public static final int    CARD_FRONT_TEXT_COL = 2;
+    public static final int    CARD_FRONT_TEXT_COL = 3;
 
     public static final String CARD_BACK_TEXT = "back_text";
-    public static final int    CARD_BACK_TEXT_COL = 3;
+    public static final int    CARD_BACK_TEXT_COL = 4;
 
     public static final String CARD_FRONT_IMAGE = "front_image";
-    public static final int    CARD_FRONT_IMAGE_COL = 4;
+    public static final int    CARD_FRONT_IMAGE_COL = 5;
 
     public static final String CARD_BACK_IMAGE = "back_image";
-    public static final int    CARD_BACK_IMAGE_COL = 5;
+    public static final int    CARD_BACK_IMAGE_COL = 6;
 
     // CREATE and DROP TABLE statements
     public static final String CREATE_DECK_TABLE =
@@ -56,10 +60,11 @@ public class DeckDatabase {
             "CREATE TABLE " + CARD_TABLE + " (" +
                     CARD_ID         + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     CARD_DECK_ID    + " INTEGER, " +
+                    CARD_NAME_ID    + " TEXT, " +
                     CARD_FRONT_TEXT       + " TEXT, " +
                     CARD_BACK_TEXT      + " TEXT, " +
-                    CARD_FRONT_IMAGE  + " INT, " +
-                    CARD_BACK_IMAGE     + " INT)";
+                    CARD_FRONT_IMAGE  + " TEXT, " +
+                    CARD_BACK_IMAGE     + " TEXT)";
 
     public static final String DROP_DECK_TABLE =
             "DROP TABLE IF EXISTS " + DECK_TABLE;
@@ -68,10 +73,11 @@ public class DeckDatabase {
             "DROP TABLE IF EXISTS " + CARD_TABLE;
 
     private static class DBHelper extends SQLiteOpenHelper {
-
+        private Context context;
         public DBHelper(Context context, String name,
                         CursorFactory factory, int version) {
             super(context, name, factory, version);
+            this.context = context;
         }
 
         @Override
@@ -83,80 +89,80 @@ public class DeckDatabase {
             //Insert Shape Deck
             db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (1, 'Shapes')");
             //Insert Shape Cards
-            addToDeck(db,new Card("", "Triangle", R.drawable.triangle, R.drawable.triangle),1);
-            addToDeck(db,new Card("", "Square", R.drawable.square, R.drawable.square),1);
-            addToDeck(db,new Card("", "Oval", R.drawable.oval, R.drawable.oval),1);
-            addToDeck(db,new Card("", "Heart", R.drawable.heart, R.drawable.heart),1);
-            addToDeck(db,new Card("", "Hexagon", R.drawable.hexagon, R.drawable.hexagon),1);
-            addToDeck(db, new Card("", "Parallelgram", R.drawable.parallelogram, R.drawable.parallelogram), 1);
-            addToDeck(db, new Card("", "Pentagon", R.drawable.pentagon, R.drawable.pentagon), 1);
-            addToDeck(db, new Card("", "Rhombus", R.drawable.rhombus, R.drawable.rhombus), 1);
-            addToDeck(db,new Card("", "Star", R.drawable.star, R.drawable.star),1);
+            addToDeck(db,new Card(0,"Triangle","", "Triangle", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.triangle)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.triangle))),1);
+            addToDeck(db,new Card(0,"Square","", "Square", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.square)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.square))),1);
+            addToDeck(db,new Card(0,"Oval","", "Oval", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.oval)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.oval))),1);
+            addToDeck(db,new Card(0,"Heart","", "Heart", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.heart)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.heart))),1);
+            addToDeck(db,new Card(0,"Hexagon","", "Hexagon", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.hexagon)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.hexagon))),1);
+            addToDeck(db, new Card(0,"Parallelgram","", "Parallelgram", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.parallelogram)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.parallelogram))), 1);
+            addToDeck(db, new Card(0,"Pentagon","", "Pentagon", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.pentagon)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.pentagon))), 1);
+            addToDeck(db, new Card(0,"Rhombus","", "Rhombus", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.rhombus)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.rhombus))), 1);
+            addToDeck(db,new Card(0,"Star","", "Star", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.star)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.star))),1);
 
             //Insert President Deck
             db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (2, 'Presidents')");
-            addToDeck(db, new Card("George  Washington", "1st"), 23);
-            addToDeck(db, new Card("John Adams", "2nd"), 2);
-            addToDeck(db, new Card("Thomas Jefferson", "3rd"), 2);
-            addToDeck(db, new Card("James Madison", "4th"), 2);
-            addToDeck(db, new Card("James Monroe", "5th"), 2);
-            addToDeck(db, new Card("John Quincy Adams", "6th"), 2);
-            addToDeck(db, new Card("Andrew Jackson", "7th"), 2);
-            addToDeck(db, new Card("Martin Van Buren", "8th"), 2);
-            addToDeck(db, new Card("William Henry Harrison", "9th"), 2);
-            addToDeck(db, new Card("John Tyler", "10th"), 2);
-			addToDeck(db, new Card("James K. Polk", "11th"), 2);
-			addToDeck(db, new Card("Zachary Taylor", "12th"), 2);
-			addToDeck(db, new Card("Millard Fillmore", "13th"), 2);
-			addToDeck(db, new Card("Franklin Pierce", "14th"), 2);
-			addToDeck(db, new Card("James Buchana", "15th"), 2);
-			addToDeck(db, new Card("Abraham Lincoln", "16th"), 2);
-			addToDeck(db, new Card("Andrew Johnson", "17th"), 2);
-			addToDeck(db, new Card("Ulysses S. Grant", "18th"), 2);
-			addToDeck(db, new Card("Rutherford B. Hayes", "19th"), 2);
-			addToDeck(db, new Card("James A. Garfield", "20th"), 2);
-			addToDeck(db, new Card("Chester A. Arthur", "21sh"), 2);
-			addToDeck(db, new Card("Grover Cleveland", "22nd"), 2);
-			addToDeck(db, new Card("Benjamin Harrison", "23rd"), 2);
-			addToDeck(db, new Card("Grover Cleveland", "24th"), 2);
-			addToDeck(db, new Card("William McKinley", "25th"), 2);
-			addToDeck(db, new Card("Theodore Roosevelt", "26th"), 2);
-			addToDeck(db, new Card("William Howard Taft", "27th"), 2);
-			addToDeck(db, new Card("Woodrow Wilson", "28th"), 2);
-			addToDeck(db, new Card("Warren G. Harding", "29th"), 2);
-			addToDeck(db, new Card("Calvin Coolidge", "30th"), 2);
-			addToDeck(db, new Card("Herbert Hoover", "31st"), 2);
-			addToDeck(db, new Card("Franklin D. Roosevelt", "32nd"), 2);
-			addToDeck(db, new Card("Harry S. Truman", "33rd"), 2);
-			addToDeck(db, new Card("Dwight D. Eisenhower", "34th"), 2);
-			addToDeck(db, new Card("John F. Kennedy", "35th"), 2);
-			addToDeck(db, new Card("Lyndon B. Johnson", "36th"), 2);
-			addToDeck(db, new Card("Richard Nixon", "37th"), 2);
-			addToDeck(db, new Card("Gerald Ford", "38th"), 2);
-			addToDeck(db, new Card("Jimmy Carter", "39th"), 2);
-			addToDeck(db, new Card("Ronald Reagan", "40th"), 2);
-			addToDeck(db, new Card("George H. W. Bush", "41st"), 2);
-			addToDeck(db, new Card("Bill Clinton", "42nd"), 2);
-			addToDeck(db, new Card("George W. Bush", "43th"), 2);
-			addToDeck(db, new Card("Barack Obama", "44th"), 2);
+            addToDeck(db, new Card(0,"George  Washington","George  Washington", "1st"), 2);
+            addToDeck(db, new Card(0,"John Adams","John Adams", "2nd"), 2);
+            addToDeck(db, new Card(0,"Thomas Jefferson","Thomas Jefferson", "3rd"), 2);
+            addToDeck(db, new Card(0,"James Madison","James Madison", "4th"), 2);
+            addToDeck(db, new Card(0,"James Monroe","James Monroe", "5th"), 2);
+            addToDeck(db, new Card(0,"John Quincy Adams","John Quincy Adams", "6th"), 2);
+            addToDeck(db, new Card(0,"Andrew Jackson","Andrew Jackson", "7th"), 2);
+            addToDeck(db, new Card(0,"Martin Van Buren","Martin Van Buren", "8th"), 2);
+            addToDeck(db, new Card(0,"William Henry Harrison","William Henry Harrison", "9th"), 2);
+            addToDeck(db, new Card(0,"John Tyler","John Tyler", "10th"), 2);
+			addToDeck(db, new Card(0,"James K. Polk","James K. Polk", "11th"), 2);
+			addToDeck(db, new Card(0,"Zachary Taylor","Zachary Taylor", "12th"), 2);
+			addToDeck(db, new Card(0,"Millard Fillmore","Millard Fillmore", "13th"), 2);
+			addToDeck(db, new Card(0,"Franklin Pierce","Franklin Pierce", "14th"), 2);
+			addToDeck(db, new Card(0,"James Buchana","James Buchana", "15th"), 2);
+			addToDeck(db, new Card(0,"Abraham Lincoln","Abraham Lincoln", "16th"), 2);
+			addToDeck(db, new Card(0,"Andrew Johnson","Andrew Johnson", "17th"), 2);
+			addToDeck(db, new Card(0,"Ulysses S. Grant","Ulysses S. Grant", "18th"), 2);
+			addToDeck(db, new Card(0,"Rutherford B. Hayes","Rutherford B. Hayes", "19th"), 2);
+			addToDeck(db, new Card(0,"James A. Garfield","James A. Garfield", "20th"), 2);
+			addToDeck(db, new Card(0,"Chester A. Arthur","Chester A. Arthur", "21sh"), 2);
+			addToDeck(db, new Card(0,"Grover Cleveland","Grover Cleveland", "22nd"), 2);
+			addToDeck(db, new Card(0,"Benjamin Harrison","Benjamin Harrison", "23rd"), 2);
+			addToDeck(db, new Card(0,"Grover Cleveland","Grover Cleveland", "24th"), 2);
+			addToDeck(db, new Card(0,"William McKinley","William McKinley", "25th"), 2);
+			addToDeck(db, new Card(0,"Theodore Roosevelt","Theodore Roosevelt", "26th"), 2);
+			addToDeck(db, new Card(0,"William Howard Taft","William Howard Taft", "27th"), 2);
+			addToDeck(db, new Card(0,"Woodrow Wilson","Woodrow Wilson", "28th"), 2);
+			addToDeck(db, new Card(0,"Warren G. Harding","Warren G. Harding", "29th"), 2);
+			addToDeck(db, new Card(0,"Calvin Coolidge","Calvin Coolidge", "30th"), 2);
+			addToDeck(db, new Card(0,"Herbert Hoover","Herbert Hoover", "31st"), 2);
+			addToDeck(db, new Card(0,"Franklin D. Roosevelt","Franklin D. Roosevelt", "32nd"), 2);
+			addToDeck(db, new Card(0,"Harry S. Truman","Harry S. Truman", "33rd"), 2);
+			addToDeck(db, new Card(0,"Dwight D. Eisenhower","Dwight D. Eisenhower", "34th"), 2);
+			addToDeck(db, new Card(0,"John F. Kennedy","John F. Kennedy", "35th"), 2);
+			addToDeck(db, new Card(0,"Lyndon B. Johnson","Lyndon B. Johnson", "36th"), 2);
+			addToDeck(db, new Card(0,"Richard Nixon","Richard Nixon", "37th"), 2);
+			addToDeck(db, new Card(0,"Gerald Ford","Gerald Ford", "38th"), 2);
+			addToDeck(db, new Card(0,"Jimmy Carter","Jimmy Carter", "39th"), 2);
+			addToDeck(db, new Card(0,"Ronald Reagan","Ronald Reagan", "40th"), 2);
+			addToDeck(db, new Card(0,"George H. W. Bush","George H. W. Bush", "41st"), 2);
+			addToDeck(db, new Card(0,"Bill Clinton","Bill Clinton", "42nd"), 2);
+			addToDeck(db, new Card(0,"George W. Bush","George W. Bush", "43th"), 2);
+			addToDeck(db, new Card(0,"Barack Obama","Barack Obama", "44th"), 2);
 
 
             //Insert our spanish color deck
             db.execSQL("INSERT INTO " + DECK_TABLE + " VALUES (3, 'Spanish Colors')");
             //Insert the Default Spanish Color Cards
-            addToDeck(db, new Card("Red", "Rojo", R.drawable.red, R.drawable.red),3);
-            addToDeck(db, new Card("Orange", "Naranja", R.drawable.orange, R.drawable.orange),3);
-            addToDeck(db, new Card("Yellow", "Amarillo", R.drawable.yellow, R.drawable.yellow),3);
-            addToDeck(db, new Card("Green", "Verde", R.drawable.green, R.drawable.green),3);
-            addToDeck(db, new Card("Blue", "Azul", R.drawable.blue, R.drawable.blue), 3);
-            addToDeck(db, new Card("Indigo", "Indigo", R.drawable.indigo, R.drawable.indigo), 3);
-            addToDeck(db, new Card("Violet", "Violeta", R.drawable.violet, R.drawable.violet), 3);
+            addToDeck(db, new Card(0,"Red","Red", "Rojo", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.red)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.red))),3);
+            addToDeck(db, new Card(0,"Orange","Orange", "Naranja", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.orange)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.orange))),3);
+            addToDeck(db, new Card(0,"Yellow","Yellow", "Amarillo", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.yellow)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.yellow))),3);
+            addToDeck(db, new Card(0,"Green","Green", "Verde", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.green)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.green))),3);
+            addToDeck(db, new Card(0,"Blue","Blue", "Azul", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.blue)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.blue))), 3);
+            addToDeck(db, new Card(0,"Indigo","Indigo", "Indigo",Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.indigo)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.indigo))), 3);
+            addToDeck(db, new Card(0,"Violet","Violet", "Violeta", Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.violet)), Card.bitmapToString(BitmapFactory.decodeResource(context.getResources(), R.drawable.violet))), 3);
         }
 
         public void addToDeck(SQLiteDatabase db, Card card, int deckIndex) {
-            db.execSQL("INSERT INTO " + CARD_TABLE + " (" + CARD_DECK_ID + "," + CARD_FRONT_TEXT + "," + CARD_BACK_TEXT + "," +
-                    CARD_FRONT_IMAGE + "," + CARD_BACK_IMAGE + ") VALUES (" + deckIndex + ", '" + card.getFrontText() + "','" + card.getBackText() + "'," +
-                    card.getFrontImagePath() + "," + card.getBackImagePath() + ")");
+            db.execSQL("INSERT INTO " + CARD_TABLE + " (" + CARD_DECK_ID + "," + CARD_NAME_ID + "," + CARD_FRONT_TEXT + "," + CARD_BACK_TEXT + "," +
+                    CARD_FRONT_IMAGE + "," + CARD_BACK_IMAGE + ") VALUES (" + deckIndex + ",'" + card.getName() + "','" + card.getFrontText() + "','" + card.getBackText() + "','" +
+                    card.getFrontImagePath() + "','" + card.getBackImagePath() + "')");
         }
 
         @Override
@@ -196,6 +202,27 @@ public class DeckDatabase {
             db.close();
     }
 
+    public long addDeck(String name) {
+        ContentValues cv = new ContentValues();
+        cv.put(DECK_NAME, name);
+
+        this.openWriteableDB();
+        long rowID = db.insert(DECK_TABLE, null, cv);
+        this.closeDB();
+
+        return rowID;
+    }
+
+    public void updateDeck(Deck deck) {
+        ContentValues cv = new ContentValues();
+        cv.put(DECK_NAME, deck.getName());
+        String where = DECK_ID + "= ?";
+        String[] whereArgs = { String.valueOf(deck.getDeckId()) };
+        this.openWriteableDB();
+        db.update(DECK_TABLE, cv, where, whereArgs);
+        this.closeDB();
+    }
+
     public ArrayList<Deck> getDecks() {
         this.openReadableDB();
         Cursor cursor = db.query(DECK_TABLE, null,
@@ -203,7 +230,7 @@ public class DeckDatabase {
                 null, null, null);
         ArrayList<Deck> decks = new ArrayList<Deck>();
         while (cursor.moveToNext()) {
-            decks.add(getDeck(cursor.getString(DECK_NAME_COL)));
+            decks.add(getDeck(cursor.getInt(DECK_ID_COL)));
         }
         if (cursor != null)
             cursor.close();
@@ -211,16 +238,15 @@ public class DeckDatabase {
         return decks;
     }
 
-    public Deck getDeck(String name) {
-        String where = DECK_NAME + "= ?";
-        String[] whereArgs = { name };
+    public Deck getDeck(int id) {
+        String where = DECK_ID + "=" + id;
 
         openReadableDB();
         Cursor cursor = db.query(DECK_TABLE, null,
-                where, whereArgs, null, null, null);
+                where, null, null, null, null);
         Deck deck = null;
         cursor.moveToFirst();
-        deck = new Deck();
+        deck = new Deck(id,cursor.getString(DECK_NAME_COL));
         ArrayList<Card> deckCards = getCards(cursor.getInt(DECK_ID_COL));
         for (int i = 0; i < deckCards.size(); i++) {
             deck.addCard(deckCards.get(i));
@@ -229,6 +255,24 @@ public class DeckDatabase {
         this.closeDB();
 
         return deck;
+    }
+
+    public void deleteDeck(int id) {
+        String where = DECK_ID + "= ?";
+        String[] whereArgs = { String.valueOf(id) };
+
+        this.openWriteableDB();
+        int rowCount = db.delete(DECK_TABLE, where, whereArgs);
+        this.closeDB();
+    }
+
+    public void deleteCard(int id) {
+        String where = CARD_ID + "= ?";
+        String[] whereArgs = { String.valueOf(id) };
+
+        this.openWriteableDB();
+        int rowCount = db.delete(CARD_TABLE, where, whereArgs);
+        this.closeDB();
     }
 
     public ArrayList<Card> getCards(int deckId) {
@@ -249,6 +293,54 @@ public class DeckDatabase {
         return cards;
     }
 
+    public Card getCard(int cardId) {
+        String where =
+                CARD_ID + "=" + cardId;
+
+        this.openReadableDB();
+        Cursor cursor = db.query(CARD_TABLE, null,
+                where, null,
+                null, null, null);
+        Card card = null;
+        cursor.moveToFirst();
+        card = getCardFromCursor(cursor);
+        if (cursor != null)
+            cursor.close();
+        this.closeDB();
+        return card;
+    }
+
+    public void updateCard(Card card) {
+        ContentValues cv = new ContentValues();
+        cv.put(CARD_ID, card.getId());
+        cv.put(CARD_NAME_ID, card.getName());
+        cv.put(CARD_FRONT_TEXT, card.getFrontText());
+        cv.put(CARD_BACK_TEXT, card.getBackText());
+        cv.put(CARD_FRONT_IMAGE, card.getFrontImagePath());
+        cv.put(CARD_BACK_IMAGE, card.getBackImagePath());
+        String where = CARD_ID + "= ?";
+        String[] whereArgs = { String.valueOf(card.getId()) };
+        this.openWriteableDB();
+        db.update(CARD_TABLE, cv,where,whereArgs);
+        this.closeDB();
+    }
+
+    public long insertCard(Card card, int deckId) {
+        ContentValues cv = new ContentValues();
+        cv.put(CARD_NAME_ID, card.getName());
+        cv.put(CARD_DECK_ID, deckId);
+        cv.put(CARD_FRONT_TEXT, card.getFrontText());
+        cv.put(CARD_BACK_TEXT, card.getBackText());
+        cv.put(CARD_FRONT_IMAGE, card.getFrontImagePath());
+        cv.put(CARD_BACK_IMAGE, card.getBackImagePath());
+
+        this.openWriteableDB();
+        long rowID = db.insert(CARD_TABLE, null, cv);
+        this.closeDB();
+
+        return rowID;
+    }
+
     private static Card getCardFromCursor(Cursor cursor) {
         if (cursor == null || cursor.getCount() == 0){
             return null;
@@ -256,10 +348,12 @@ public class DeckDatabase {
         else {
             try {
                 Card card = new Card(
+                        cursor.getInt(CARD_ID_COL),
+                        cursor.getString(CARD_NAME_ID_COL),
                         cursor.getString(CARD_FRONT_TEXT_COL),
                         cursor.getString(CARD_BACK_TEXT_COL),
-                        cursor.getInt(CARD_FRONT_IMAGE_COL),
-                        cursor.getInt(CARD_BACK_IMAGE_COL));
+                        cursor.getString(CARD_FRONT_IMAGE_COL),
+                        cursor.getString(CARD_BACK_IMAGE_COL));
                 return card;
             }
             catch(Exception e) {

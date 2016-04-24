@@ -8,10 +8,19 @@ import java.util.List;
  * Created by JC Snider on 2/14/2016.
  */
 public class Deck implements Serializable{
-    private List<Card> Cards = new ArrayList<Card>();
+    private ArrayList<Card> Cards = new ArrayList<Card>();
+    private String deckName = "";
+    private int deckId = -1;
+    private DeckLayout layoutElement;
+    private Boolean listChecked = false;
 
     public Deck() {
 
+    }
+
+    public Deck(int id, String name) {
+        this.deckId = id;
+        deckName = name;
     }
 
     public void addCard(Card toAdd) {
@@ -31,6 +40,38 @@ public class Deck implements Serializable{
             return Cards.get(index);
         }
         return null;
+    }
+
+    public void setName(String deckName) {
+        this.deckName = deckName;
+    }
+
+    public ArrayList<Card> getCards() {
+        return Cards;
+    }
+
+    public String getName() {
+        return deckName;
+    }
+
+    public int getDeckId() {
+        return deckId;
+    }
+
+    public Boolean getListChecked() {
+        return listChecked;
+    }
+
+    public void setListChecked(Boolean listChecked) {
+        this.listChecked = listChecked;
+    }
+
+    public void setLayoutElement(DeckLayout layoutElement) {
+        this.layoutElement = layoutElement;
+    }
+
+    public DeckLayout getLayoutElement() {
+        return layoutElement;
     }
 
     public int count() {

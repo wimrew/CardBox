@@ -1,5 +1,10 @@
 package com.example.wimrew.cardbox;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 
 /**
@@ -7,22 +12,30 @@ import java.io.Serializable;
  */
 public class Card implements Serializable{
 
+    private int _id = 0;
+    private String _name = "";
     private String _frontText = "";
     private String _backText = "";
-    private int _frontImagePath = 0;
-    private int _backImagePath = 0;
+    private String _frontImagePath = "";
+    private String _backImagePath = "";
+    private CardLayout layoutElement;
+    private Boolean listChecked = false;
 
     public Card(){
 
     }
 
-    public Card(String frontText, String backText, int frontImagePath, int backImagePath){
+    public Card(int id, String name, String frontText, String backText, String frontImagePath, String backImagePath){
+        _id = id;
+        _name = name;
         _frontText = frontText;
         _backText = backText;
         _frontImagePath = frontImagePath;
         _backImagePath = backImagePath;
     }
-    public Card(String frontText, String backText){
+    public Card(int id, String name, String frontText, String backText){
+        _id = id;
+        _name = name;
         _frontText = frontText;
         _backText = backText;
     }
@@ -35,12 +48,16 @@ public class Card implements Serializable{
          _backText = value;
     }
 
-    public void setFrontImagePath(int value) {
+    public void setFrontImagePath(String value) {
         _frontImagePath = value;
     }
 
-    public void setBackImagePath(int value) {
+    public void setBackImagePath(String value) {
         _backImagePath = value;
+    }
+
+    public void setName(String _name) {
+        this._name = _name;
     }
 
     //Getters
@@ -52,11 +69,45 @@ public class Card implements Serializable{
         return _backText;
     }
 
-    public int getFrontImagePath() {
+    public String getFrontImagePath() {
         return _frontImagePath;
     }
 
-    public int getBackImagePath() {
+    public String getBackImagePath() {
         return _backImagePath;
+    }
+
+    public final static String bitmapToString(Bitmap in){
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        in.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        return Base64.encodeToString(bytes.toByteArray(), Base64.DEFAULT);
+    }
+    public final static Bitmap stringToBitmap(String in){
+        byte[] bytes = Base64.decode(in, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    public String getName() {
+        return _name;
+    }
+
+    public void setLayoutElement(CardLayout layoutElement) {
+        this.layoutElement = layoutElement;
+    }
+
+    public CardLayout getLayoutElement() {
+        return layoutElement;
+    }
+
+    public Boolean getListChecked() {
+        return listChecked;
+    }
+
+    public void setListChecked(Boolean listChecked) {
+        this.listChecked = listChecked;
+    }
+
+    public int getId() {
+        return _id;
     }
 }

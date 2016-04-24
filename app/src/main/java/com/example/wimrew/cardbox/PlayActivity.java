@@ -86,7 +86,7 @@ public class PlayActivity extends AppCompatActivity  {
         editor.apply();
 
 
-super.onPause();
+        super.onPause();
     }
 
     @Override
@@ -157,11 +157,10 @@ try {
         cardimage.setVisibility(View.VISIBLE);
         cardtext.setVisibility(View.VISIBLE);
 
-        if (card.getFrontImagePath()==0){
-         cardimage.setVisibility(View.GONE);
+        if (card.getFrontImagePath()==null || card.getFrontImagePath().equals("")){
+            cardimage.setVisibility(View.GONE);
         } else {
-
-            cardimage.setImageResource(currentCard.getFrontImagePath());
+            cardimage.setImageBitmap(Card.stringToBitmap(currentCard.getFrontImagePath()));
         }
 
         if (card.getFrontText().equals("")){
@@ -175,11 +174,11 @@ try {
     private void setBackCard(Card card){
         cardimage.setVisibility(View.VISIBLE);
         cardtext.setVisibility(View.VISIBLE);
-        if (card.getBackImagePath()==0){
+        if (card.getBackImagePath()==null || card.getBackImagePath().equals("")){
             cardimage.setVisibility(View.GONE);
         } else {
 
-            cardimage.setImageResource(currentCard.getBackImagePath());
+            cardimage.setImageBitmap(Card.stringToBitmap(currentCard.getBackImagePath()));
         }
 
         if (card.getBackText().equals("")){
@@ -191,9 +190,7 @@ try {
     }
 
     private void initSessionAndDeck() {
-        decks=deckDatabase.getDecks();
-        //chosenDeck, a value between 0 and the number of decks
-        currentDeck=decks.get(chosenDeck);
+        currentDeck=deckDatabase.getDeck(chosenDeck);
         studysession=new StudySession(currentDeck);
         studysession.setCorrectLimit(correct);
 
