@@ -13,9 +13,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 
-
-import com.google.tabmanager.TabManager;
-
 import java.util.ArrayList;
 
 public class DeckListActivity extends AppCompatActivity {
